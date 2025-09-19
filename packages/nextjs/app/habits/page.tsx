@@ -8,11 +8,12 @@ import { RegistrationForm } from "./_components/RegistrationForm";
 import { HabitCreation } from "./_components/HabitCreation";
 import { HabitsList } from "./_components/HabitsList";
 import { RewardsPanel } from "./_components/RewardsPanel";
+import { WithdrawComponent } from "./_components/WithdrawComponent";
 import { useScaffoldReadContract } from "~~/hooks/scaffold-stark";
 
 const HabitsPage: NextPage = () => {
   const { address: connectedAddress } = useAccount();
-  const [activeTab, setActiveTab] = useState<"dashboard" | "create" | "habits" | "rewards">("dashboard");
+  const [activeTab, setActiveTab] = useState<"dashboard" | "create" | "habits" | "rewards" | "withdraw">("dashboard");
 
   // Check if user is registered
   const { data: userInfo } = useScaffoldReadContract({
@@ -92,6 +93,12 @@ const HabitsPage: NextPage = () => {
           >
             🎁 Rewards
           </button>
+          <button
+            className={`tab ${activeTab === "withdraw" ? "tab-active" : ""}`}
+            onClick={() => setActiveTab("withdraw")}
+          >
+            💰 Withdraw
+          </button>
         </div>
       </div>
 
@@ -101,6 +108,7 @@ const HabitsPage: NextPage = () => {
         {activeTab === "create" && <HabitCreation />}
         {activeTab === "habits" && <HabitsList />}
         {activeTab === "rewards" && <RewardsPanel />}
+        {activeTab === "withdraw" && <WithdrawComponent />}
       </div>
     </div>
   );
