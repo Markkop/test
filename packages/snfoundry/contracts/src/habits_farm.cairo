@@ -170,11 +170,16 @@ pub mod HabitsFarm {
             
             assert(!user.is_registered, 'User already registered');
             assert(deposit_amount > 0, 'Deposit must be positive');
-            
-            // Transfer STRK from user to contract
-            let strk_dispatcher = IERC20Dispatcher { 
-                contract_address: STRK_CONTRACT.try_into().unwrap() 
+
+            // Check user's STRK balance first to avoid underflows in the STRK contract
+            let strk_dispatcher = IERC20Dispatcher {
+                contract_address: STRK_CONTRACT.try_into().unwrap(),
             };
+
+            let user_balance = strk_dispatcher.balance_of(caller);
+            assert(user_balance >= deposit_amount, 'Insufficient STRK balance');
+
+            // Transfer STRK from user to contract
             strk_dispatcher.transfer_from(caller, get_contract_address(), deposit_amount);
             
             // Initialize user

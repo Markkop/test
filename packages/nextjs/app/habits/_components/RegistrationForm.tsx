@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { StarkInput } from "~~/components/scaffold-stark";
-import { useScaffoldWriteContract, useScaffoldReadContract } from "~~/hooks/scaffold-stark";
+import { useScaffoldWriteContract, useScaffoldReadContract, useDeployedContractInfo } from "~~/hooks/scaffold-stark";
 import { useAccount } from "@starknet-react/core";
 
 export const RegistrationForm = () => {
@@ -13,11 +13,16 @@ export const RegistrationForm = () => {
 
   const { address: connectedAddress } = useAccount();
   
+  // Get the deployed HabitsFarm contract address
+  const { data: habitsFarmContract } = useDeployedContractInfo({
+    contractName: "HabitsFarm",
+  });
+  
   // Check current STRK allowance
   const { data: allowance, refetch: refetchAllowance } = useScaffoldReadContract({
     contractName: "Strk",
     functionName: "allowance",
-    args: [connectedAddress, "0x062b2d9F61bFC1e3163e66a99BF86d6819653D9B68E44eD30f7bE15Cb32dE857"], // HabitsFarm contract address
+    args: [connectedAddress, habitsFarmContract?.address || "0xfdebe84ca9f2753a8481e38de02a38551681b955c4d5b69eeca255a7315212"], // HabitsFarm contract address
   });
 
   // STRK token approval
@@ -25,7 +30,7 @@ export const RegistrationForm = () => {
     contractName: "Strk",
     functionName: "approve",
     args: [
-      "0x062b2d9F61bFC1e3163e66a99BF86d6819653D9B68E44eD30f7bE15Cb32dE857", // HabitsFarm contract address
+      habitsFarmContract?.address || "0xfdebe84ca9f2753a8481e38de02a38551681b955c4d5b69eeca255a7315212", // HabitsFarm contract address
       depositAmount ? BigInt(parseFloat(depositAmount) * 1e18) : 0n,
     ],
   });
@@ -41,6 +46,10 @@ export const RegistrationForm = () => {
     if (!depositAmount || parseFloat(depositAmount) <= 0) {
       alert("Please enter a valid deposit amount");
       return;
+    }
+
+    if (!habitsFarmContract?.address) {
+      console.warn("Contract address not loaded, using hook fallback...");
     }
 
     try {
@@ -64,6 +73,10 @@ export const RegistrationForm = () => {
     if (!depositAmount || parseFloat(depositAmount) <= 0) {
       alert("Please enter a valid deposit amount");
       return;
+    }
+
+    if (!habitsFarmContract?.address) {
+      console.warn("Contract address not loaded, using hook fallback...");
     }
 
     try {
