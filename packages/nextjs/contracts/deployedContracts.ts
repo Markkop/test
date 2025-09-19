@@ -7,12 +7,12 @@ const deployedContracts = {
   devnet: {
     YourContract: {
       address:
-        "0x1a2542704c7588b9c5eb86c9a1b2391b93b77b67694268b74db51097031839d",
+        "0x46fdb21b1de3977d1d31411cd8f0250e9708e3892f7a3cb51723d6067f02102",
       abi: [
         {
           type: "impl",
           name: "YourContractImpl",
-          interface_name: "contracts::YourContract::IYourContract",
+          interface_name: "contracts::your_contract::IYourContract",
         },
         {
           type: "struct",
@@ -76,7 +76,7 @@ const deployedContracts = {
         },
         {
           type: "interface",
-          name: "contracts::YourContract::IYourContract",
+          name: "contracts::your_contract::IYourContract",
           items: [
             {
               type: "function",
@@ -229,7 +229,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "contracts::YourContract::YourContract::GreetingChanged",
+          name: "contracts::your_contract::YourContract::GreetingChanged",
           kind: "struct",
           members: [
             {
@@ -256,7 +256,7 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "contracts::YourContract::YourContract::Event",
+          name: "contracts::your_contract::YourContract::Event",
           kind: "enum",
           variants: [
             {
@@ -266,111 +266,85 @@ const deployedContracts = {
             },
             {
               name: "GreetingChanged",
-              type: "contracts::YourContract::YourContract::GreetingChanged",
+              type: "contracts::your_contract::YourContract::GreetingChanged",
               kind: "nested",
             },
           ],
         },
       ],
       classHash:
-        "0x5e4c766477764df946dcce9b0d2c865468882ac572c0d3767aeb98d23cbe74b",
+        "0x21e2aa81952de7b6851d5e76ea1f70283373407b22bfb4d32fafa4c5e2c8f1d",
     },
-  },
-  mainnet: {
-    Multicall: {
+    HabitsFarm: {
       address:
-        "0x7ca5ccfeb2e4d6e13e9382d70042712f1f736c003f3a40243d9a397a7317251",
+        "0x62b2d9f61bfc1e3163e66a99bf86d6819653d9b68e44ed30f7be15cb32de857",
       abi: [
         {
           type: "impl",
-          name: "MulticallImpl",
-          interface_name: "contracts::multicall::IMulticall",
+          name: "HabitsFarmImpl",
+          interface_name: "contracts::habits_farm::IHabitsFarm",
         },
         {
           type: "struct",
-          name: "core::array::Span::<core::starknet::contract_address::ContractAddress>",
+          name: "core::integer::u256",
           members: [
             {
-              name: "snapshot",
-              type: "@core::array::Array::<core::starknet::contract_address::ContractAddress>",
+              name: "low",
+              type: "core::integer::u128",
+            },
+            {
+              name: "high",
+              type: "core::integer::u128",
+            },
+          ],
+        },
+        {
+          type: "enum",
+          name: "core::bool",
+          variants: [
+            {
+              name: "False",
+              type: "()",
+            },
+            {
+              name: "True",
+              type: "()",
             },
           ],
         },
         {
           type: "struct",
-          name: "core::array::Span::<core::felt252>",
+          name: "contracts::habits_farm::UserInfo",
           members: [
             {
-              name: "snapshot",
-              type: "@core::array::Array::<core::felt252>",
+              name: "is_registered",
+              type: "core::bool",
             },
-          ],
-        },
-        {
-          type: "struct",
-          name: "core::array::Span::<core::array::Span::<core::felt252>>",
-          members: [
             {
-              name: "snapshot",
-              type: "@core::array::Array::<core::array::Span::<core::felt252>>",
+              name: "total_deposit",
+              type: "core::integer::u256",
             },
-          ],
-        },
-        {
-          type: "interface",
-          name: "contracts::multicall::IMulticall",
-          items: [
             {
-              type: "function",
-              name: "call_contracts",
-              inputs: [
-                {
-                  name: "contracts",
-                  type: "core::array::Span::<core::starknet::contract_address::ContractAddress>",
-                },
-                {
-                  name: "entry_point_selectors",
-                  type: "core::array::Span::<core::felt252>",
-                },
-                {
-                  name: "calldata",
-                  type: "core::array::Span::<core::array::Span::<core::felt252>>",
-                },
-              ],
-              outputs: [
-                {
-                  type: "core::array::Array::<core::array::Span::<core::felt252>>",
-                },
-              ],
-              state_mutability: "view",
+              name: "available_balance",
+              type: "core::integer::u256",
+            },
+            {
+              name: "habits_created",
+              type: "core::integer::u256",
+            },
+            {
+              name: "habits_completed",
+              type: "core::integer::u256",
+            },
+            {
+              name: "last_staking_claim",
+              type: "core::integer::u64",
+            },
+            {
+              name: "total_earned",
+              type: "core::integer::u256",
             },
           ],
-        },
-        {
-          type: "constructor",
-          name: "constructor",
-          inputs: [],
-        },
-        {
-          type: "event",
-          name: "contracts::multicall::Multicall::Event",
-          kind: "enum",
-          variants: [],
-        },
-      ],
-      classHash:
-        "0x67be8d0979b1012f4222674cb81e3a0413e45e16897b8d7c650ae84ba4a3f23",
-    },
-  },
-  sepolia: {
-    YourContract: {
-      address:
-        "0x62eb9272c7523ee445d223bae15b5b44a79c3fdbb5216d3412534a47bcc5255",
-      abi: [
-        {
-          type: "impl",
-          name: "YourContractImpl",
-          interface_name: "contracts::YourContract::IYourContract",
         },
         {
           type: "struct",
@@ -392,72 +366,89 @@ const deployedContracts = {
         },
         {
           type: "struct",
-          name: "core::integer::u256",
+          name: "contracts::habits_farm::Habit",
           members: [
             {
-              name: "low",
-              type: "core::integer::u128",
-            },
-            {
-              name: "high",
-              type: "core::integer::u128",
-            },
-          ],
-        },
-        {
-          type: "enum",
-          name: "core::option::Option::<core::integer::u256>",
-          variants: [
-            {
-              name: "Some",
+              name: "id",
               type: "core::integer::u256",
             },
             {
-              name: "None",
-              type: "()",
-            },
-          ],
-        },
-        {
-          type: "enum",
-          name: "core::bool",
-          variants: [
-            {
-              name: "False",
-              type: "()",
+              name: "user",
+              type: "core::starknet::contract_address::ContractAddress",
             },
             {
-              name: "True",
-              type: "()",
+              name: "title",
+              type: "core::byte_array::ByteArray",
+            },
+            {
+              name: "description",
+              type: "core::byte_array::ByteArray",
+            },
+            {
+              name: "stake_amount",
+              type: "core::integer::u256",
+            },
+            {
+              name: "created_at",
+              type: "core::integer::u64",
+            },
+            {
+              name: "duration_days",
+              type: "core::integer::u32",
+            },
+            {
+              name: "is_completed",
+              type: "core::bool",
+            },
+            {
+              name: "completed_at",
+              type: "core::integer::u64",
+            },
+            {
+              name: "reward_claimed",
+              type: "core::bool",
             },
           ],
         },
         {
           type: "interface",
-          name: "contracts::YourContract::IYourContract",
+          name: "contracts::habits_farm::IHabitsFarm",
           items: [
             {
               type: "function",
-              name: "greeting",
-              inputs: [],
+              name: "register_user",
+              inputs: [
+                {
+                  name: "deposit_amount",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "get_user_info",
+              inputs: [
+                {
+                  name: "user",
+                  type: "core::starknet::contract_address::ContractAddress",
+                },
+              ],
               outputs: [
                 {
-                  type: "core::byte_array::ByteArray",
+                  type: "contracts::habits_farm::UserInfo",
                 },
               ],
               state_mutability: "view",
             },
             {
               type: "function",
-              name: "set_greeting",
+              name: "withdraw_deposit",
               inputs: [
                 {
-                  name: "new_greeting",
-                  type: "core::byte_array::ByteArray",
-                },
-                {
-                  name: "amount_strk",
-                  type: "core::option::Option::<core::integer::u256>",
+                  name: "amount",
+                  type: "core::integer::u256",
                 },
               ],
               outputs: [],
@@ -465,18 +456,142 @@ const deployedContracts = {
             },
             {
               type: "function",
-              name: "withdraw",
+              name: "create_habit",
+              inputs: [
+                {
+                  name: "title",
+                  type: "core::byte_array::ByteArray",
+                },
+                {
+                  name: "description",
+                  type: "core::byte_array::ByteArray",
+                },
+                {
+                  name: "stake_amount",
+                  type: "core::integer::u256",
+                },
+                {
+                  name: "duration_days",
+                  type: "core::integer::u32",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "complete_habit",
+              inputs: [
+                {
+                  name: "habit_id",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "get_habit",
+              inputs: [
+                {
+                  name: "habit_id",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [
+                {
+                  type: "contracts::habits_farm::Habit",
+                },
+              ],
+              state_mutability: "view",
+            },
+            {
+              type: "function",
+              name: "get_user_habits",
+              inputs: [
+                {
+                  name: "user",
+                  type: "core::starknet::contract_address::ContractAddress",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::array::Array::<core::integer::u256>",
+                },
+              ],
+              state_mutability: "view",
+            },
+            {
+              type: "function",
+              name: "claim_habit_reward",
+              inputs: [
+                {
+                  name: "habit_id",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "calculate_staking_rewards",
+              inputs: [
+                {
+                  name: "user",
+                  type: "core::starknet::contract_address::ContractAddress",
+                },
+              ],
+              outputs: [
+                {
+                  type: "core::integer::u256",
+                },
+              ],
+              state_mutability: "view",
+            },
+            {
+              type: "function",
+              name: "claim_staking_rewards",
               inputs: [],
               outputs: [],
               state_mutability: "external",
             },
             {
               type: "function",
-              name: "premium",
+              name: "set_base_reward_rate",
+              inputs: [
+                {
+                  name: "rate",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "set_staking_apr",
+              inputs: [
+                {
+                  name: "apr",
+                  type: "core::integer::u256",
+                },
+              ],
+              outputs: [],
+              state_mutability: "external",
+            },
+            {
+              type: "function",
+              name: "get_total_deposits",
               inputs: [],
               outputs: [
                 {
-                  type: "core::bool",
+                  type: "core::integer::u256",
                 },
               ],
               state_mutability: "view",
@@ -587,34 +702,134 @@ const deployedContracts = {
         },
         {
           type: "event",
-          name: "contracts::YourContract::YourContract::GreetingChanged",
+          name: "contracts::habits_farm::HabitsFarm::UserRegistered",
           kind: "struct",
           members: [
             {
-              name: "greeting_setter",
+              name: "user",
               type: "core::starknet::contract_address::ContractAddress",
               kind: "key",
             },
             {
-              name: "new_greeting",
-              type: "core::byte_array::ByteArray",
-              kind: "key",
-            },
-            {
-              name: "premium",
-              type: "core::bool",
-              kind: "data",
-            },
-            {
-              name: "value",
-              type: "core::option::Option::<core::integer::u256>",
+              name: "deposit_amount",
+              type: "core::integer::u256",
               kind: "data",
             },
           ],
         },
         {
           type: "event",
-          name: "contracts::YourContract::YourContract::Event",
+          name: "contracts::habits_farm::HabitsFarm::HabitCreated",
+          kind: "struct",
+          members: [
+            {
+              name: "user",
+              type: "core::starknet::contract_address::ContractAddress",
+              kind: "key",
+            },
+            {
+              name: "habit_id",
+              type: "core::integer::u256",
+              kind: "key",
+            },
+            {
+              name: "title",
+              type: "core::byte_array::ByteArray",
+              kind: "data",
+            },
+            {
+              name: "stake_amount",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+            {
+              name: "duration_days",
+              type: "core::integer::u32",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::habits_farm::HabitsFarm::HabitCompleted",
+          kind: "struct",
+          members: [
+            {
+              name: "user",
+              type: "core::starknet::contract_address::ContractAddress",
+              kind: "key",
+            },
+            {
+              name: "habit_id",
+              type: "core::integer::u256",
+              kind: "key",
+            },
+            {
+              name: "completion_time",
+              type: "core::integer::u64",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::habits_farm::HabitsFarm::RewardClaimed",
+          kind: "struct",
+          members: [
+            {
+              name: "user",
+              type: "core::starknet::contract_address::ContractAddress",
+              kind: "key",
+            },
+            {
+              name: "habit_id",
+              type: "core::integer::u256",
+              kind: "key",
+            },
+            {
+              name: "reward_amount",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::habits_farm::HabitsFarm::StakingRewardsClaimed",
+          kind: "struct",
+          members: [
+            {
+              name: "user",
+              type: "core::starknet::contract_address::ContractAddress",
+              kind: "key",
+            },
+            {
+              name: "reward_amount",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::habits_farm::HabitsFarm::DepositWithdrawn",
+          kind: "struct",
+          members: [
+            {
+              name: "user",
+              type: "core::starknet::contract_address::ContractAddress",
+              kind: "key",
+            },
+            {
+              name: "amount",
+              type: "core::integer::u256",
+              kind: "data",
+            },
+          ],
+        },
+        {
+          type: "event",
+          name: "contracts::habits_farm::HabitsFarm::Event",
           kind: "enum",
           variants: [
             {
@@ -623,15 +838,40 @@ const deployedContracts = {
               kind: "flat",
             },
             {
-              name: "GreetingChanged",
-              type: "contracts::YourContract::YourContract::GreetingChanged",
+              name: "UserRegistered",
+              type: "contracts::habits_farm::HabitsFarm::UserRegistered",
+              kind: "nested",
+            },
+            {
+              name: "HabitCreated",
+              type: "contracts::habits_farm::HabitsFarm::HabitCreated",
+              kind: "nested",
+            },
+            {
+              name: "HabitCompleted",
+              type: "contracts::habits_farm::HabitsFarm::HabitCompleted",
+              kind: "nested",
+            },
+            {
+              name: "RewardClaimed",
+              type: "contracts::habits_farm::HabitsFarm::RewardClaimed",
+              kind: "nested",
+            },
+            {
+              name: "StakingRewardsClaimed",
+              type: "contracts::habits_farm::HabitsFarm::StakingRewardsClaimed",
+              kind: "nested",
+            },
+            {
+              name: "DepositWithdrawn",
+              type: "contracts::habits_farm::HabitsFarm::DepositWithdrawn",
               kind: "nested",
             },
           ],
         },
       ],
       classHash:
-        "0x5e4c766477764df946dcce9b0d2c865468882ac572c0d3767aeb98d23cbe74b",
+        "0x3eb722914966915fb8ac081399e134340a7840e90ed8aa636c650cc6bda626c",
     },
   },
 } as const;
